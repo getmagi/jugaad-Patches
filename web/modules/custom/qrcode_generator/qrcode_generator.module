@@ -1,0 +1,21 @@
+<?php
+/**
+ * @file
+ * Primary module hooks for QRCode Generator module.
+ */
+
+/**
+ * Implements hook_entity_presave().
+ */
+function qrcode_generator_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
+  //generate_qrcode with product url and product title  
+  if ($entity->bundle() == 'product') {
+    $product_url = $entity->field_purchase_link->uri;
+    $product_name = $entity->get('title')->value;
+    $Qrcode_service = \Drupal::service('qrcode_generator.generate_qrcode');
+    $QRCodePath = $Qrcode_service->BuildQrCode($product_url, $product_name);
+    // save file location to entity.
+    $entity->set('field_product_qr_code',$QRCodePath);
+  }
+ 
+}

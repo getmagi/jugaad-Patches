@@ -1,0 +1,19 @@
+.product_content {
+    float: left;
+    margin: 10px;
+    padding: 10px;
+    min-width: 65%;
+    max-width: 65%;
+    text-align: center;
+}
+
+.product_content img{
+    float: left;
+    padding: 5px;
+    margin: 5px;
+    
+}
+.product_content .text-content {
+    text-align: justify;
+    font-size: 1rem;
+}

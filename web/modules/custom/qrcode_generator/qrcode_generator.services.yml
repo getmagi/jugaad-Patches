@@ -1,0 +1,4 @@
+services:
+  qrcode_generator.generate_qrcode:
+    class: Drupal\qrcode_generator\GenerateQrcode
+    arguments: ['@logger.factory', '@file_system']

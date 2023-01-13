@@ -1,0 +1,5 @@
+name: QRCode Generator
+type: module
+description: Custom module to generate QR code from Entity link field
+package: Custom
+core_version_requirement: ^9 || ^10
