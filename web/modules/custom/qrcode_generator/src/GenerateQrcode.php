@@ -17,61 +17,64 @@ use Endroid\QrCode\Writer\ValidationException;
 /**
  * Service description.
  */
-class GenerateQrcode {
 
-  /**
-   * The logger channel factory.
-   *
-   * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
-   */
-  protected $logger;
+class GenerateQrcode
+{
 
-  /**
-   * The file handler.
-   *
-   * @var \Drupal\Core\File\FileSystemInterface
-   */
-  protected $fileSystem;
+    /**
+     * The logger channel factory.
+     *
+     * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
+     */
+    protected $logger;
 
-  /**
-   * Constructs a GenerateQrcode object.
-   *
-   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger
-   *   The logger channel factory.
-   * @param \Drupal\Core\File\FileSystemInterface $file_system
-   *   The file handler.
-   */
-  public function __construct(LoggerChannelFactoryInterface $logger, FileSystemInterface $file_system) {
-    $this->logger = $logger;
-    $this->fileSystem = $file_system;
-  }
+    /**
+     * The file handler.
+     *
+     * @var \Drupal\Core\File\FileSystemInterface
+     */
+    protected $fileSystem;
 
-  /**
-   * Method description.
-   */
-  public function BuildQrCode($url, $name) {
+    /**
+     * Constructs a GenerateQrcode object.
+     *
+     * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger
+     *   The logger channel factory.
+     * @param \Drupal\Core\File\FileSystemInterface $file_system
+     *   The file handler.
+     */
+    public function __construct(LoggerChannelFactoryInterface $logger, FileSystemInterface $file_system) {
+        $this->logger = $logger;
+        $this->fileSystem = $file_system;
+    }
 
-    $writer = new PngWriter();
+    /**
+     * Method description.
+     */
+    public function buildQrCode($url, $name)
+    {
 
-    // Create QR code
-    $qrCode = QrCode::create($url)
-        ->setEncoding(new Encoding('UTF-8'))
-        ->setErrorCorrectionLevel(new ErrorCorrectionLevelLow())
-        ->setSize(300)
-        ->setMargin(10)
-        ->setRoundBlockSizeMode(new RoundBlockSizeModeMargin())
-        ->setForegroundColor(new Color(0, 0, 0))
-        ->setBackgroundColor(new Color(255, 255, 255));
+        $writer = new PngWriter();
+
+        // Create QR code
+        $qrCode = QrCode::create($url)
+            ->setEncoding(new Encoding('UTF-8'))
+            ->setErrorCorrectionLevel(new ErrorCorrectionLevelLow())
+            ->setSize(300)
+            ->setMargin(10)
+            ->setRoundBlockSizeMode(new RoundBlockSizeModeMargin())
+            ->setForegroundColor(new Color(0, 0, 0))
+            ->setBackgroundColor(new Color(255, 255, 255));
 
 
-    $result = $writer->write($qrCode);
-    $filename = str_replace(' ', '-', $name);
-    $filename = $filename . '-qrcode.png';
-    // Save it to a file in public file folder
-    $directory = 'public://Qr-codes/';
-    $result->saveToFile($directory . $filename);
+        $result = $writer->write($qrCode);
+        $filename = str_replace(' ', '-', $name);
+        $filename = $filename . '-qrcode.png';
+        // Save it to a file in public file folder
+        $directory = 'public://';
+        $result->saveToFile($directory . $filename);
 
-    return $filename;
-  }
+        return $filename;
+    }
 
 }

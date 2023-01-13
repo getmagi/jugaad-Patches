@@ -13,7 +13,7 @@ function qrcode_generator_entity_presave(Drupal\Core\Entity\EntityInterface $ent
     $product_url = $entity->field_purchase_link->uri;
     $product_name = $entity->get('title')->value;
     $Qrcode_service = \Drupal::service('qrcode_generator.generate_qrcode');
-    $QRCodePath = $Qrcode_service->BuildQrCode($product_url, $product_name);
+    $QRCodePath = $Qrcode_service->buildQrCode($product_url, $product_name);
     // save file location to entity.
     $entity->set('field_product_qr_code',$QRCodePath);
   }
