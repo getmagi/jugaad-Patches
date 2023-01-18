@@ -69,7 +69,7 @@ class GenerateQrcode
 
         $result = $writer->write($qrCode);
         $filename = str_replace(' ', '-', $name);
-        $filename = $filename . '-qrcode.png';
+        $filename = $filename . rand() . '-qrcode.png';
         // Save it to a file in public file folder
         $directory = 'public://';
         $result->saveToFile($directory . $filename);
